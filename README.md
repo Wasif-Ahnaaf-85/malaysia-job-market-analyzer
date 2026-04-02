@@ -16,7 +16,11 @@ To extract, clean, and analyze real-world job market data to uncover actionable 
   * `Matplotlib` (Visualization)
   * `python-dotenv` (Secure environment variable management)
 
-
+## Dataset Details & ETL Process
+* **Raw Data:** Over 150MB of unstructured, raw job board data (available as a compressed `.zip` in the `data/` folder).
+* **Source:** *Collected from Kaggle (https://www.kaggle.com/datasets/azraimohamad/jobstreet-all-job-dataset?)*
+* **The Challenge:** The raw data contained inconsistent naming conventions, unfiltered recruitment agency spam, and unnormalized salary brackets.
+* **The Solution (ETL):** I built a custom MySQL schema to load the raw data, applied Entity Resolution via `CASE` statements to clean subsidiary companies, and normalized the locations into a clean, queryable format.
 
 
 ## Key Business Insights
