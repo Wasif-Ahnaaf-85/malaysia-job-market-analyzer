@@ -1,6 +1,8 @@
 import pandas as pd
 import re
 from sqlalchemy import create_engine, text
+import os
+from dotenv import load_dotenv
 
 # ==========================================
 # 1. EXTRACT
@@ -54,8 +56,13 @@ if salary_col in df.columns:
 # 3. LOAD (Pushing to MySQL)
 # ==========================================
 print("Connecting to database...")
-# IMPORTANT: Change 'YourPassword' to your actual MySQL root password
-engine = create_engine('mysql+mysqlconnector://root:YourPassword@localhost/job_market_db')
+load_dotenv()
+
+# Get the password securely
+db_pass = os.getenv('DB_PASSWORD')
+
+# Use it in the engine
+engine = create_engine(f'mysql+mysqlconnector://root:{db_pass}@localhost/job_market_db')
 
 print("Resetting database tables for a fresh run...")
 with engine.connect() as conn:

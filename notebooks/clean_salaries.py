@@ -1,14 +1,21 @@
 import pandas as pd
 import re
 from sqlalchemy import create_engine
+import os
+from dotenv import load_dotenv
 
 # ==========================================
 # 1. DATABASE CONNECTION
 # ==========================================
 print("Connecting to the database...")
-# IMPORTANT: Replace 'YourPassword' with your actual MySQL password
-engine = create_engine('mysql+mysqlconnector://root:YourPassword@localhost/job_market_db')
+# Load the variables from the .env file
+load_dotenv()
 
+# Get the password securely
+db_pass = os.getenv('DB_PASSWORD')
+
+# Use it in the engine
+engine = create_engine(f'mysql+mysqlconnector://root:{db_pass}@localhost/job_market_db')
 # Pull the job_id and the dirty salary string
 query = "SELECT job_id, salary_raw FROM jobs WHERE salary_raw IS NOT NULL AND salary_raw != '';"
 df_salaries = pd.read_sql(query, con=engine)

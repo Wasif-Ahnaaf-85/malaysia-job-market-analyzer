@@ -1,14 +1,21 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
+import os
+from dotenv import load_dotenv
 
 # ==========================================
 # 1. DATABASE CONNECTION
 # ==========================================
 print("Connecting to the database...")
-# IMPORTANT: Replace 'YourPassword' with your actual MySQL password
-engine = create_engine('mysql+mysqlconnector://root:YourPassword@localhost/job_market_db')
+# Load the variables from the .env file
+load_dotenv()
 
+# Get the password securely
+db_pass = os.getenv('DB_PASSWORD')
+
+# Use it in the engine
+engine = create_engine(f'mysql+mysqlconnector://root:{db_pass}@localhost/job_market_db')
 # ==========================================
 # 2. EXTRACT DATA USING A "SMART" SQL QUERY
 # ==========================================
