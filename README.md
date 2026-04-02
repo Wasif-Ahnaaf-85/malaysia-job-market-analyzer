@@ -35,7 +35,7 @@ To extract, clean, and analyze real-world job market data to uncover actionable 
 ![Top Employers](outputs/top_employers.png)
 
 ### 3. Salary Benchmarks
-![Salary Ranges](outputs/salary_ranges.jpg)
+![Salary Ranges](outputs/salary_ranges.png)
 
 
 
