@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 # ==========================================
 print("Connecting to the database...")
 # IMPORTANT: Replace 'YourPassword' with your actual MySQL password
-engine = create_engine('mysql+mysqlconnector://root:Wasif#3185@localhost/job_market_db')
+engine = create_engine('mysql+mysqlconnector://root:YourPassword@localhost/job_market_db')
 
 # ==========================================
 # 2. EXTRACT DATA USING A "SMART" SQL QUERY

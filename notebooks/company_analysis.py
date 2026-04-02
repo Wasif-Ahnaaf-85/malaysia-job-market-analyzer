@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 # 1. DATABASE CONNECTION
 # ==========================================
 print("Connecting to the database...")
-engine = create_engine('mysql+mysqlconnector://root:Wasif#3185@localhost/job_market_db')
+engine = create_engine('mysql+mysqlconnector://root:YourPassword@localhost/job_market_db')
 
 # ==========================================
 # 2. SQL QUERY
