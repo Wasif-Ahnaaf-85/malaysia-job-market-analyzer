@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from sqlalchemy import create_engine
 
 # 1. DATABASE CONNECTION
+print("Connecting to the database...")
 engine = create_engine('mysql+mysqlconnector://root:Wasif#3185@localhost/job_market_db')
 
 # 2. CONSOLIDATED SQL QUERY
@@ -40,7 +41,7 @@ GROUP BY clean_location
 ORDER BY job_count DESC
 LIMIT 6;
 """
-
+print("Executing SQL query...")
 df_loc = pd.read_sql(query, con=engine)
 
 # 3. CREATE DONUT CHART
