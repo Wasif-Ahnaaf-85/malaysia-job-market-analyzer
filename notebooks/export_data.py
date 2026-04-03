@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
 # ==========================================
-# 1. SECURE DATABASE CONNECTION
+# 1. DATABASE CONNECTION
 # ==========================================
 load_dotenv()
 db_pass = os.getenv('DB_PASSWORD')
@@ -25,16 +25,15 @@ os.makedirs(output_dir, exist_ok=True)
 print("Starting data export process...\n" + "-" * 30)
 
 for table in tables_to_export:
-    print(f"📥 Extracting '{table}' table...")
+    print(f" Extracting '{table}' table...")
 
     # Query the full table
     query = f"SELECT * FROM {table}"
     df = pd.read_sql(query, con=engine)
 
-    # Save as CSV, forcing UTF-8 encoding to handle all special characters safely
     output_path = f"{output_dir}/{table}_export.csv"
     df.to_csv(output_path, index=False, encoding='utf-8')
 
-    print(f"✅ Saved {len(df)} rows to {output_path}")
+    print(f" Saved {len(df)} rows to {output_path}")
 
-print("-" * 30 + "\n🎉 All tables successfully exported!")
+print("-" * 30 + "\n All tables successfully exported!")

@@ -8,13 +8,9 @@ from dotenv import load_dotenv
 # 1. DATABASE CONNECTION
 # ==========================================
 print("Connecting to the database...")
-# Load the variables from the .env file
+
 load_dotenv()
-
-# Get the password securely
 db_pass = os.getenv('DB_PASSWORD')
-
-# Use it in the engine
 engine = create_engine(f'mysql+mysqlconnector://root:{db_pass}@localhost/job_market_db')
 
 # ==========================================
@@ -69,14 +65,11 @@ plt.ylabel('Company', fontsize=12)
 # Add data labels directly onto the bars
 plt.bar_label(bars, padding=5, fontsize=11, fontweight='bold')
 
-# Extend X-axis slightly so the labels don't get cut off
 plt.xlim(0, df_comp['open_roles'].max() * 1.15)
-
-# Add grid lines behind the bars for easier reading
 plt.grid(axis='x', linestyle='--', alpha=0.6)
 plt.tight_layout()
 
 # Save and show
 plt.savefig('../outputs/top_employers.png', dpi=300)
-print("✅ Chart saved to outputs/top_employers.png")
+print(" Chart saved to outputs/top_employers.png")
 plt.show()

@@ -8,16 +8,14 @@ from dotenv import load_dotenv
 # 1. DATABASE CONNECTION
 # ==========================================
 print("Connecting to the database...")
-# Load the variables from the .env file
+
 load_dotenv()
-
-# Get the password securely
 db_pass = os.getenv('DB_PASSWORD')
-
-# Use it in the engine
 engine = create_engine(f'mysql+mysqlconnector://root:{db_pass}@localhost/job_market_db')
+
+# ==========================================
 # 2. CONSOLIDATED SQL QUERY
-# Using your validated CASE logic to group sub-locations
+# ==========================================
 query = """
 SELECT 
     CASE 
@@ -54,7 +52,9 @@ LIMIT 6;
 print("Executing SQL query...")
 df_loc = pd.read_sql(query, con=engine)
 
+# ==========================================
 # 3. CREATE DONUT CHART
+# ==========================================
 plt.figure(figsize=(10, 8))
 colors = ['#ff9999','#66b3ff','#99ff99','#ffcc99','#c2c2f0','#ffb3e6']
 
@@ -76,5 +76,5 @@ plt.axis('equal')
 plt.tight_layout()
 
 plt.savefig('../outputs/location_distribution.png', dpi=300)
-print("✅ Consolidated chart saved to outputs/location_distribution.png")
+print(" Consolidated chart saved to outputs/location_distribution.png")
 plt.show()

@@ -16,6 +16,7 @@ GROUP BY c.company_name
 ORDER BY job_posting_count DESC
 LIMIT 10;
 
+
 -- Finding the AI/Data Roles 
 SELECT 
     job_title, 
@@ -28,6 +29,7 @@ WHERE job_title LIKE '%Data%'
 GROUP BY job_title
 ORDER BY demand DESC
 LIMIT 15;
+
 
 -- Salary Analysis (Averages by Role)
 SELECT 
@@ -48,6 +50,7 @@ WHERE (job_title LIKE '%Data%'
 GROUP BY job_title
 ORDER BY postings_with_salary DESC
 LIMIT 10; 
+
 
 -- Location Analysis
 SELECT 
@@ -95,6 +98,7 @@ GROUP BY clean_location
 ORDER BY job_count DESC
 LIMIT 5;
 
+
 -- Employer Analysis 
 SELECT 
     CASE 
@@ -113,7 +117,6 @@ JOIN companies c ON j.company_id = c.company_id
 WHERE (j.job_title LIKE '%Data%' 
    OR j.job_title LIKE '%Machine Learning%' 
    OR j.job_title LIKE '% AI %')
-   -- Filter out SEEK since it's the job platform, not the employer
    AND c.company_name NOT LIKE '%SEEK%'
    AND c.company_name NOT LIKE '%Private Advertiser%'
    AND c.company_name NOT LIKE '%%Agensi Pekerjaan%%'

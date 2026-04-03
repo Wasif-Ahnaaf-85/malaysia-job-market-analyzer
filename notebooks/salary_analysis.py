@@ -9,14 +9,11 @@ from dotenv import load_dotenv
 # 1. DATABASE CONNECTION
 # ==========================================
 print("Connecting to the database...")
-# Load the variables from the .env file
+
 load_dotenv()
-
-# Get the password securely
 db_pass = os.getenv('DB_PASSWORD')
-
-# Use it in the engine
 engine = create_engine(f'mysql+mysqlconnector://root:{db_pass}@localhost/job_market_db')
+
 # ==========================================
 # 2. EXTRACT CLEAN SALARY DATA
 # ==========================================
@@ -38,9 +35,9 @@ WHERE (job_title LIKE '%Data%'
    AND job_title NOT LIKE '%Property%'
    AND job_title NOT LIKE '%Datacom%'
    AND job_title NOT LIKE '%Procurement%'
-   AND job_title NOT LIKE '%Facilities%'    -- NEW
-   AND job_title NOT LIKE '%Center%'        -- NEW
-   AND job_title NOT LIKE '%Centre%'        -- NEW
+   AND job_title NOT LIKE '%Facilities%'    
+   AND job_title NOT LIKE '%Center%'        
+   AND job_title NOT LIKE '%Centre%'        
    AND min_salary IS NOT NULL 
    AND min_salary > 0
 GROUP BY job_title

@@ -16,17 +16,12 @@ if 'listingdate' in df.columns and 'listing date' not in df.columns:
     df.rename(columns={'listingdate': 'listing date'}, inplace=True)
 
 # ==========================================
-# 2. TRANSFORM (Cleaning)
+# 2. TRANSFORM
 # ==========================================
 print("Cleaning data...")
 df.dropna(subset=['job_title', 'company', 'location'], inplace=True)
 df.drop_duplicates(subset=['job_id'], inplace=True)
 
-# --- BULLETPROOF TEXT CLEANING ---
-# 1. Convert to string
-# 2. Split by ANY hidden whitespace/tabs/newlines
-# 3. Join back together with exactly one normal space
-# 4. Convert to UPPERCASE
 df['company'] = df['company'].astype(str).apply(lambda x: ' '.join(x.split())).str.upper()
 df['location'] = df['location'].astype(str).apply(lambda x: ' '.join(x.split())).str.upper()
 # ---------------------------------
@@ -53,15 +48,11 @@ if salary_col in df.columns:
     )
 
 # ==========================================
-# 3. LOAD (Pushing to MySQL)
+# 3. LOAD
 # ==========================================
 print("Connecting to database...")
 load_dotenv()
-
-# Get the password securely
 db_pass = os.getenv('DB_PASSWORD')
-
-# Use it in the engine
 engine = create_engine(f'mysql+mysqlconnector://root:{db_pass}@localhost/job_market_db')
 
 print("Resetting database tables for a fresh run...")
@@ -78,12 +69,12 @@ print("Processing Companies and Locations...")
 companies_df = pd.DataFrame(df['company'].dropna().unique(), columns=['company_name'])
 locations_df = pd.DataFrame(df['location'].dropna().unique(), columns=['location_name'])
 
-# Pushing with lowercase table names to fix the UserWarning
+
 companies_df.to_sql('companies', con=engine, if_exists='append', index=False)
 locations_df.to_sql('locations', con=engine, if_exists='append', index=False)
 
 print("Mapping Foreign Keys...")
-# Reading from lowercase table names
+
 companies_db = pd.read_sql("SELECT company_id, company_name FROM companies", con=engine)
 locations_db = pd.read_sql("SELECT location_id, location_name FROM locations", con=engine)
 
